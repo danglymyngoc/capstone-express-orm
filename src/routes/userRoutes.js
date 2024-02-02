@@ -1,30 +1,14 @@
 import express from 'express';
 import storage from '../controllers/uploadController.js';
-import { addSingleImg, deleteImage, getListCreatedImg, getUserInfo, postComment, saveImage, updateUserInfo, uploadAvatar, uploadImg } from '../controllers/userController.js';
+import { addSingleImg, deleteImage, getListCreatedImg, getUserInfo, postComment, saveImage, updateUserInfo } from '../controllers/userController.js';
 import { verifyToken } from '../config/jwt.js';
 
 
 const userRoutes = express.Router()
 
+userRoutes.post('/add-single-img', verifyToken, storage.single('file'), addSingleImg)
 
-userRoutes.post(
-    "/upload-avatar",
-    verifyToken,
-    storage.single("file"),
-    uploadAvatar
-)
-
-userRoutes.post(
-    '/upload-img',
-    verifyToken,
-    storage.single("file"),
-    uploadImg,
-
-)
-
-userRoutes.post('/add-single-img', verifyToken, addSingleImg)
-
-userRoutes.put('/update-user-info', verifyToken, updateUserInfo)
+userRoutes.put('/update-user-info', verifyToken, storage.single('file'), updateUserInfo)
 
 userRoutes.get('/get-user-info', verifyToken, getUserInfo)
 

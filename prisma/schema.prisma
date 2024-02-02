@@ -13,8 +13,8 @@ model comments {
   img_id      Int?
   cmt_date    String? @db.VarChar(200)
   cmt_content String? @db.VarChar(200)
-  users       users?  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_1")
-  images      images? @relation(fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_ibfk_2")
+  users       users?  @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "comments_ibfk_1")
+  images      images? @relation(fields: [img_id], references: [img_id], onDelete: Cascade, map: "comments_ibfk_2")
 
   @@index([img_id], map: "img_id")
   @@index([user_id], map: "user_id")
@@ -27,7 +27,7 @@ model images {
   img_desc    String?       @db.VarChar(200)
   user_id     Int?
   comments    comments[]
-  users       users?        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "images_ibfk_1")
+  users       users?        @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "images_ibfk_1")
   save_images save_images[]
 
   @@index([user_id], map: "user_id")
@@ -38,8 +38,8 @@ model save_images {
   user_id   Int?
   img_id    Int?
   save_date String? @db.VarChar(200)
-  users     users?  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "save_images_ibfk_1")
-  images    images? @relation(fields: [img_id], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "save_images_ibfk_2")
+  users     users?  @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "save_images_ibfk_1")
+  images    images? @relation(fields: [img_id], references: [img_id], onDelete: Cascade, map: "save_images_ibfk_2")
 
   @@index([img_id], map: "img_id")
   @@index([user_id], map: "user_id")

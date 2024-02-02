@@ -599,64 +599,6 @@
 			"name": "Trang thêm ảnh",
 			"item": [
 				{
-					"name": "upload-img",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibmdvYzNAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoibmdvYzNkYW5nIiwidXNlcl9pZCI6NH0sImlhdCI6MTcwNjE2NTg0NiwiZXhwIjoxNzM3NzIzNDQ2fQ.7F1Ru1n6p9ypLlV6Sley7sYJL4eTGeeTgsrjTdOqw6g",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "postman-cloud:///1eebb4f6-d9b2-4a40-a3df-6801eab7e9bd"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:8081/user/upload-img",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"user",
-								"upload-img"
-							],
-							"query": [
-								{
-									"key": "file",
-									"value": "",
-									"disabled": true
-								}
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
-				{
 					"name": "add-single-img",
 					"event": [
 						{
@@ -682,13 +624,19 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"img_name\":\"english dog\",\n    \"img_desc\":\"english dog desc\",\n    \"img_url\":\"http://localhost:8081/public/img/1706166033782_english-dog-breeds-4788340-hero-14a64cf053ca40f78e5bd078b052d97f.jpg\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1eebb4cf-c4fa-4250-ad21-e475165bea85"
+								},
+								{
+									"key": "imgInfo",
+									"value": "{\n    \"img_name\":\"english dog\",\n    \"img_desc\":\"english dog desc\"\n}",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8081/user/add-single-img",
@@ -711,64 +659,6 @@
 		{
 			"name": "Chỉnh sử thông tin cá nhân",
 			"item": [
-				{
-					"name": "upload avatar",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibmdvYzNAZ21haWwuY29tIiwiZnVsbF9uYW1lIjoibmdvYzNkYW5nIiwidXNlcl9pZCI6NH0sImlhdCI6MTcwNjE2NTg0NiwiZXhwIjoxNzM3NzIzNDQ2fQ.7F1Ru1n6p9ypLlV6Sley7sYJL4eTGeeTgsrjTdOqw6g",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "postman-cloud:///1eebb603-4316-4150-aae4-6de92d1d46bc"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:8081/user/upload-avatar",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"user",
-								"upload-avatar"
-							],
-							"query": [
-								{
-									"key": "file",
-									"value": "",
-									"disabled": true
-								}
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
-					},
-					"response": []
-				},
 				{
 					"name": "Update user info",
 					"event": [

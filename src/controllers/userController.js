@@ -2,38 +2,25 @@ import { checkToken } from "../config/jwt.js";
 import bcrypt from 'bcrypt'
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-const uploadAvatar = (req, res) => {
-    try {
-        let avatar = `http://localhost:8081/public/img/${req.file.filename}`
 
-        res.send(avatar)
-    } catch (error) {
-        res.send(error)
-    }
-}
-
-const uploadImg = (req, res) => {
-    try {
-        let img_url = `http://localhost:8081/public/img/${req.file.filename}`
-
-        res.send(img_url)
-    } catch (error) {
-        res.send(error)
-    }
-}
 
 const addSingleImg = async (req, res) => {
     try {
         let { token } = req.headers;
         let isValidToken = checkToken(token);
         let { user_id } = isValidToken.data.data;
-        let { img_name, img_desc, img_url } = req.body
+        let { imgInfo } = req.body
+        let img_url = `http://localhost:8081/public/img/${req.file.filename}`
+        let img_name = JSON.parse(imgInfo).img_name
+        let img_desc = JSON.parse(imgInfo).img_desc
+
         let newImg = {
             img_name,
             img_url,
             img_desc,
             user_id
         }
+
         await prisma.images.create({
             data: newImg
         })
@@ -58,7 +45,10 @@ const updateUserInfo = async (req, res) => {
         if (!checkUserId) {
             return res.send('user not found')
         }
-        const { full_name, email, password, avatar, age } = req.body
+        const { userInfo } = req.body
+        const avatar = `http://localhost:8081/public/img/${req.file.filename}`
+        const { full_name, email, password, age } = JSON.parse(userInfo)
+
         const checkEmail = await prisma.users.findMany({
             where: {
                 email
@@ -77,7 +67,6 @@ const updateUserInfo = async (req, res) => {
             avatar,
             age
         }
-
         await prisma.users.update({
             where: {
                 user_id: +user_id
@@ -261,8 +250,6 @@ const saveImage = async (req, res) => {
 }
 
 export {
-    uploadAvatar,
-    uploadImg,
     addSingleImg,
     updateUserInfo,
     getUserInfo,
